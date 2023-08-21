@@ -9,5 +9,7 @@ public class MainFrame extends JFrame {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         this.add(new MainPanel());
+
+        this.revalidate();
     }
 }
