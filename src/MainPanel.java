@@ -39,7 +39,8 @@ public class MainPanel extends JPanel implements MouseMotionListener, MouseListe
             storeY = e.getY();
             Graphics g = this.getGraphics();
             showingLocation.setText(toString(e.getLocationOnScreen()));
-            g.fillOval(storeX,storeY,10,10);
+            g.fillOval(storeX,storeY,40,40);
+
 
         }
 
