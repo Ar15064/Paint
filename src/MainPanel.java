@@ -1,58 +1,50 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.nio.Buffer;
 
-public class MainPanel extends JPanel {
+public class MainPanel extends JPanel implements MouseMotionListener, MouseListener {
     JLabel showingLocation = new JLabel("");
-    boolean check = false;
-    ImageIcon brushI;
-    JLabel brush;
-
 
     int storeX = 751;
     int storeY = 346;
+    JLabel brush;
+
+    JButton clear = new JButton("Click to Clear");
     MainPanel() {
         this.setVisible(true);
         this.setBackground(Color.WHITE);
-        this.setLayout(new GridBagLayout());
-        mouseListenerInner MLI = new mouseListenerInner();
-        this.addMouseMotionListener(MLI);
-        this.addMouseListener(MLI);
+        this.addMouseMotionListener(this);
+        this.addMouseListener(this);
         this.add(showingLocation);
-        ImageIcon brushI = new ImageIcon("C:\\Users\\alekr\\IdeaProjects\\Paint\\src\\rec\\PaintBrush1.jpg");
-        brushI.setImage(brushI.getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT));
-        brush = new JLabel(brushI);
-        this.add(brush);
-
-    }
-    public void paintComponent(Graphics g){
-//        super.paintComponent(g);
-//        g.setColor(Color.BLACK);
-//        g.fillOval(storeX, storeY, 10, 10);
+        ImageIcon brushI = new ImageIcon("C:\\Users\\alekr\\IdeaProjects\\Paint\\src\\rec\\PaintBrush.png");
+        brushI.setImage(brushI.getImage().getScaledInstance(35,35,Image.SCALE_DEFAULT));
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Image image = toolkit.getImage("C:\\Users\\alekr\\IdeaProjects\\Paint\\src\\rec\\PaintBrush.png");
+        Cursor c = toolkit.createCustomCursor(image , new Point(this.getX(),
+                this.getY()), "img");
+        this.setCursor (c);
 
     }
 
-    private class mouseListenerInner implements MouseMotionListener, MouseListener {
+
         @Override
-        public void mouseDragged(MouseEvent e ) {
-
+        public void mouseDragged(MouseEvent e) {
             storeX = e.getX();
             storeY = e.getY();
+            Graphics g = this.getGraphics();
             showingLocation.setText(toString(e.getLocationOnScreen()));
-
-            brush.setLocation(e.getX(),e.getY());
-
+            g.fillOval(storeX,storeY,10,10);
 
         }
 
         @Override
         public void mouseMoved(MouseEvent e) {
-
-
-
 
         }
 
@@ -94,7 +86,7 @@ public class MainPanel extends JPanel {
         @Override
         public void mouseExited(MouseEvent e) {
         }
-    }
+
 
 
 
